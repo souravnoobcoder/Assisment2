@@ -3,8 +3,8 @@ package com.example.assisment2.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.assisment2.dataClasses.Drinks
 import com.example.assisment2.databinding.DrinksItemBinding
+import com.example.assisment2.room.Drinks
 import com.squareup.picasso.Picasso
 
 class CocktailAdapter : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {

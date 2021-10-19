@@ -1,6 +1,9 @@
 package com.example.assisment2.dI
 
+import android.app.Application
+import androidx.room.Room
 import com.example.assisment2.api.CocktailApi
+import com.example.assisment2.room.CocktailDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,4 +28,10 @@ object AppModule {
     @Singleton
     fun provideCocktailApi(retrofit: Retrofit): CocktailApi =
         retrofit.create(CocktailApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDatabase(app: Application) =
+        Room.databaseBuilder(app,CocktailDatabase::class.java,"cocktailDatabased")
+            .build()
 }
