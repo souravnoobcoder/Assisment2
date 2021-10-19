@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CocktailViewModel @Inject constructor(
-    val repository: CocktailRepository
+    private val repository: CocktailRepository
 ) : ViewModel() {
     fun findCocktails(name : String)=
     repository.getCocktails(name).asLiveData()
