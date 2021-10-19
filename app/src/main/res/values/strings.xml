@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Assisment2</string>
+    <string name="view_more">view More</string>
+    <string name="ingredients">Ingredients</string>
 </resources>
