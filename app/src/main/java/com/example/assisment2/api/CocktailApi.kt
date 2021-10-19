@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface CocktailApi {
 
-    @GET("search.php?s=rum")
+    @GET("search.php?")
     suspend fun getSearchedCocktail(@Query("s") cocktail: String): Json4Kotlin_Base
 
     companion object {

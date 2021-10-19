@@ -7,17 +7,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CocktailViewModel @Inject constructor(
-    repository: CocktailRepository
+    val repository: CocktailRepository
 ) : ViewModel() {
-
-    val cocktails = repository.getCocktails().asLiveData()
-//    private val cocktailLiveData = MutableLiveData<Json4Kotlin_Base>()
-//    val cocktails: LiveData<Json4Kotlin_Base> = cocktailLiveData
-//
-//    init {
-//        viewModelScope.launch {
-//            val cocktails = api.getSearchedCocktail("rum")
-//            cocktailLiveData.value = cocktails
-//        }
-//    }
+    fun findCocktails(name : String)=
+    repository.getCocktails(name).asLiveData()
 }

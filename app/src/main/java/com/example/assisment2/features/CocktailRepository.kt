@@ -12,12 +12,12 @@ class CocktailRepository @Inject constructor(
 ) {
     private val cocktailDao = database.getCocktailDao()
 
-    fun getCocktails() = networkBoundResource(
+    fun getCocktails(name : String) = networkBoundResource(
         query = {
             cocktailDao.getLastCocktails()
         },
         fetch = {
-            api.getSearchedCocktail("cocktail")
+            api.getSearchedCocktail(name)
         },
         saveFetchResult = { cocktails ->
             database.withTransaction {
