@@ -16,11 +16,11 @@ interface CocktailDao {
     fun deleteLastCocktails()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavourite(drink: Drinks)
+    suspend fun insertFavourite(favourite: Favourite)
 
     @Query("SELECT * FROM favourite")
-    fun getFavourites(): Flow<List<Drinks>>
+    fun getFavourites(): Flow<List<Favourite>>
 
     @Delete
-    fun deleteFavourite(drink: Drinks)
+    suspend fun deleteFavourite(favourite: Favourite)
 }

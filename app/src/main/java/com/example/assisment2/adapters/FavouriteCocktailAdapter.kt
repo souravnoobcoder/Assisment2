@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assisment2.databinding.DrinksItemBinding
-import com.example.assisment2.room.Drinks
+import com.example.assisment2.room.Favourite
 import com.squareup.picasso.Picasso
 
-class CocktailAdapter : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {
-    private var listener : OnItemClickListener?=null
-    private var cocktails: List<Drinks> = emptyList()
-    fun setAdapter(cocktails: List<Drinks>) {
+class FavouriteCocktailAdapter : RecyclerView.Adapter<FavouriteCocktailAdapter.ViewHolder>() {
+    private var cocktails: List<Favourite> = emptyList()
+    fun setAdapter(cocktails: List<Favourite>) {
         this.cocktails = cocktails
         notifyDataSetChanged()
     }
@@ -27,11 +26,6 @@ class CocktailAdapter : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {
             cocktailName.text = cocktail.strDrink
             categoryAlcoholic.text = "${cocktail.strCategory} and ${cocktail.strAlcoholic}"
             instructionContent.text = cocktail.strInstructions
-            rate.setOnClickListener {
-                val adapterPosition=holder.adapterPosition
-                if (listener!=null && adapterPosition!=RecyclerView.NO_POSITION)
-                    listener!!.onItemClicked(cocktails[adapterPosition],adapterPosition)
-            }
         }
     }
 
@@ -41,11 +35,5 @@ class CocktailAdapter : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {
 
     class ViewHolder(var itemBinding: DrinksItemBinding) : RecyclerView.ViewHolder(itemBinding.root)
 
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
-    }
 
-    interface OnItemClickListener {
-        fun onItemClicked(drink: Drinks?, position: Int)
-    }
 }

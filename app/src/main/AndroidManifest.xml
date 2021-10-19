@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Assisment2">
         <activity
+            android:name=".activities.FavouriteCocktails"
+            android:exported="false" />
+        <activity
             android:name=".activities.SearchCocktail"
             android:exported="false" />
         <activity
