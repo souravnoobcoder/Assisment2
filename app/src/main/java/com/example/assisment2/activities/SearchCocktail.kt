@@ -29,12 +29,18 @@ class SearchCocktail : AppCompatActivity() {
         binding = ActivitySeachingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val cocktailAdapter = CocktailAdapter(this)
+        val cocktailAdapter = CocktailAdapter()
         binding.apply {
             searchRecycle.apply {
                 adapter = cocktailAdapter
                 layoutManager = LinearLayoutManager(this@SearchCocktail)
             }
+
+            /**
+             * it will fetch the data from local database but
+             * first fetch it from server with searched drink and
+             * then save it to local database
+             */
             searchCocktails.setOnEditorActionListener { v, _, _ ->
                 searchProgress.isVisible=true
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -45,11 +51,15 @@ class SearchCocktail : AppCompatActivity() {
                         searchProgress.isVisible=false
                         setSearch(this@SearchCocktail, v?.text.toString())
                     }
-
                 }
                 true
             }
         }
+
+        /**
+         * when we click on drinks name then we save it to
+         * local database to our favourites list
+         */
         cocktailAdapter.setOnItemClickListener(object : CocktailAdapter.OnItemClickListener {
             override fun onItemClicked(drink: Drinks?, position: Int) {
                 CoroutineScope(IO).launch {

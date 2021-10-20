@@ -35,7 +35,7 @@ class LastCocktail : AppCompatActivity() {
 
 
         val lastCocktail = getSearch(this)
-        val cocktailAdapter = CocktailAdapter(this)
+        val cocktailAdapter = CocktailAdapter()
         binding.apply {
             recycle.apply {
                 adapter = cocktailAdapter
@@ -48,6 +48,12 @@ class LastCocktail : AppCompatActivity() {
             }
             setSupportActionBar(toolbar)
         }
+
+        /**
+         * it will fetch the data from local database but
+         * first fetch it from server with searched drink and
+         * then save it to local database
+         */
         cocktailAdapter.setOnItemClickListener(object : CocktailAdapter.OnItemClickListener {
             override fun onItemClicked(drink: Drinks?, position: Int) {
                 CoroutineScope(IO).launch {
@@ -66,6 +72,9 @@ class LastCocktail : AppCompatActivity() {
         return true
     }
 
+    /**
+     * it handles menu clicks
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_search -> {

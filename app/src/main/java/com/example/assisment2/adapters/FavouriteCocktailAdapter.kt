@@ -33,6 +33,14 @@ class FavouriteCocktailAdapter : RecyclerView.Adapter<FavouriteCocktailAdapter.V
             cocktailName.text = cocktail.strDrink
             categoryAlcoholic.text = "${cocktail.strCategory} and ${cocktail.strAlcoholic}"
             instructionContent.text = cocktail.strInstructions
+
+            /**
+             * it will show ingredients visible when clicked and ingredients are not visible
+             * and it will make ingredients invisible when clicked and ingredients are visible
+             *
+             * it instantiate ingredients adapter
+             * by passing list of ingredients
+             */
             expandItem.setOnClickListener {
                 if (expanded) {
                     TransitionManager.beginDelayedTransition(more, AutoTransition())
@@ -75,6 +83,5 @@ class FavouriteCocktailAdapter : RecyclerView.Adapter<FavouriteCocktailAdapter.V
     }
 
     class ViewHolder(var itemBinding: DrinksItemBinding) : RecyclerView.ViewHolder(itemBinding.root)
-
 
 }

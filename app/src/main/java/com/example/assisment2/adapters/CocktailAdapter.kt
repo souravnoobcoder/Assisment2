@@ -15,7 +15,7 @@ import com.example.assisment2.room.Drinks
 import com.example.assisment2.util.getIngredientAndMeasure
 import com.squareup.picasso.Picasso
 
-class CocktailAdapter(val context: Context) : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {
+class CocktailAdapter : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {
     private var expanded = false
     private var listener: OnItemClickListener? = null
     private var cocktails: List<Drinks> = emptyList()
@@ -37,14 +37,26 @@ class CocktailAdapter(val context: Context) : RecyclerView.Adapter<CocktailAdapt
             cocktailName.text = cocktail.strDrink
             categoryAlcoholic.text = "${cocktail.strCategory} and ${cocktail.strAlcoholic}"
             instructionContent.text = cocktail.strInstructions
+
+            /**
+             * when we click on drinks name then we save it to
+             * local database to our favourites list
+             */
             favourite.setOnClickListener {
                 val adapterPosition = holder.adapterPosition
                 if (listener != null && adapterPosition != RecyclerView.NO_POSITION) {
                     listener!!.onItemClicked(cocktails[adapterPosition], adapterPosition)
                     rate.setColorFilter(Color.CYAN)
                 }
-
             }
+
+            /**
+             * it will show ingredients visible when clicked and ingredients are not visible
+             * and it will make ingredients invisible when clicked and ingredients are visible
+             *
+             * it instantiate ingredients adapter
+             * by passing list of ingredients
+             */
             expandItem.setOnClickListener {
                 if (expanded) {
                     TransitionManager.beginDelayedTransition(more, AutoTransition())

@@ -10,6 +10,11 @@ import kotlinx.coroutines.flow.*
 const val LAST_SEARCHED_KEY = "ites is"
 const val DEFAULT_LAST_SEARCHED = "cocktail"
 
+/**
+ * @this function is responsible for fetching and saving data
+ * in local database
+ * It will decide to save data in database
+ */
 inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,
@@ -30,6 +35,13 @@ inline fun <ResultType, RequestType> networkBoundResource(
     }
     emitAll(flow)
 }
+
+/**
+ * @param drinks this converts
+ * @drinka object to
+ * @favourite object
+ * @return Favourite object
+ */
 fun drinkToFavourite(drinks: Drinks): Favourite {
     return Favourite(
         drinks.idDrink,
@@ -58,6 +70,11 @@ fun drinkToFavourite(drinks: Drinks): Favourite {
     )
 }
 
+/**
+ * this function is responsible for setting last search cocktail in sharedPreference
+ * @param context and
+ * @param search to be saved
+ */
 fun setSearch(context: Context, search: String) {
     val sharedPreferences = PreferenceManager
         .getDefaultSharedPreferences(context)
@@ -66,12 +83,21 @@ fun setSearch(context: Context, search: String) {
     editor.apply()
 }
 
+/**
+ * @return String or Last searched item
+ * by using sharedPreference
+ */
 fun getSearch(context: Context): String? {
     val sharedPreferences = PreferenceManager
         .getDefaultSharedPreferences(context)
     return sharedPreferences.getString(LAST_SEARCHED_KEY, DEFAULT_LAST_SEARCHED)
 }
 
+/**
+ * @param list list of ingredients and their measurement
+ * this function separate  ingredients and their measurement and
+ * @return Pair of ingredients list and their measurement list
+ */
 fun getIngredientAndMeasure(list: List<String?>): Pair<List<String>, List<String>> {
     val ingredient: MutableList<String> = ArrayList()
     val measure: MutableList<String> = ArrayList()

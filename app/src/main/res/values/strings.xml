@@ -3,4 +3,5 @@
     <string name="view_more">View Ingredients</string>
     <string name="ingredients">Ingredients</string>
     <string name="gap">:</string>
+    <string name="search">Search Cocktails</string>
 </resources>

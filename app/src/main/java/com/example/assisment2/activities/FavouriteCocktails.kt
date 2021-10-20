@@ -40,6 +40,10 @@ class FavouriteCocktails : AppCompatActivity() {
                 cocktailAdapter.setAdapter(it)
             }
         }
+
+        /**
+         * @deletes favourite drink from database when we swipe left to it
+         */
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             override fun onMove(
                 recyclerView: RecyclerView,
