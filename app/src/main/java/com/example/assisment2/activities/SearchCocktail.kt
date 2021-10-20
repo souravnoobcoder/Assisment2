@@ -12,8 +12,8 @@ import com.example.assisment2.adapters.CocktailAdapter
 import com.example.assisment2.databinding.ActivitySeachingBinding
 import com.example.assisment2.features.CocktailViewModel
 import com.example.assisment2.room.Drinks
-import com.example.assisment2.room.Favourite
 import com.example.assisment2.util.drinkToFavourite
+import com.example.assisment2.util.setSearch
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -29,7 +29,7 @@ class SearchCocktail : AppCompatActivity() {
         binding = ActivitySeachingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val cocktailAdapter = CocktailAdapter()
+        val cocktailAdapter = CocktailAdapter(this)
         binding.apply {
             searchRecycle.apply {
                 adapter = cocktailAdapter
@@ -43,7 +43,7 @@ class SearchCocktail : AppCompatActivity() {
                     if (it.data!!.isNotEmpty()){
                         cocktailAdapter.setAdapter(it.data)
                         searchProgress.isVisible=false
-                        TODO()
+                        setSearch(this@SearchCocktail, v?.text.toString())
                     }
 
                 }

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Assisment2</string>
-    <string name="view_more">view More</string>
+    <string name="view_more">View Ingredients</string>
     <string name="ingredients">Ingredients</string>
+    <string name="gap">:</string>
 </resources>

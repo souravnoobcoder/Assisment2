@@ -27,16 +27,6 @@
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    <TextView
-        android:id="@+id/error"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Not connected to Any Network"
-        android:visibility="gone"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/recycle"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle"
         android:layout_width="match_parent"

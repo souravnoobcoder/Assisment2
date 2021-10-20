@@ -15,6 +15,7 @@
         app:strokeWidth="1.5dp">
 
         <LinearLayout
+            android:id="@+id/expandItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -43,6 +44,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/favourite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -106,11 +108,10 @@
                     android:text="@string/ingredients"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:id="@+id/ingredients"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ingredientRecycle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

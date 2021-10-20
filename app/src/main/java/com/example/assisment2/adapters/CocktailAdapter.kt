@@ -1,15 +1,25 @@
 package com.example.assisment2.adapters
 
+import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.AutoTransition
+import androidx.transition.TransitionManager
 import com.example.assisment2.databinding.DrinksItemBinding
 import com.example.assisment2.room.Drinks
+import com.example.assisment2.util.getIngredientAndMeasure
 import com.squareup.picasso.Picasso
 
-class CocktailAdapter : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {
-    private var listener : OnItemClickListener?=null
+class CocktailAdapter(val context: Context) : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {
+    private var expanded = false
+    private var listener: OnItemClickListener? = null
     private var cocktails: List<Drinks> = emptyList()
+
     fun setAdapter(cocktails: List<Drinks>) {
         this.cocktails = cocktails
         notifyDataSetChanged()
@@ -27,10 +37,47 @@ class CocktailAdapter : RecyclerView.Adapter<CocktailAdapter.ViewHolder>() {
             cocktailName.text = cocktail.strDrink
             categoryAlcoholic.text = "${cocktail.strCategory} and ${cocktail.strAlcoholic}"
             instructionContent.text = cocktail.strInstructions
-            rate.setOnClickListener {
-                val adapterPosition=holder.adapterPosition
-                if (listener!=null && adapterPosition!=RecyclerView.NO_POSITION)
-                    listener!!.onItemClicked(cocktails[adapterPosition],adapterPosition)
+            favourite.setOnClickListener {
+                val adapterPosition = holder.adapterPosition
+                if (listener != null && adapterPosition != RecyclerView.NO_POSITION) {
+                    listener!!.onItemClicked(cocktails[adapterPosition], adapterPosition)
+                    rate.setColorFilter(Color.CYAN)
+                }
+
+            }
+            expandItem.setOnClickListener {
+                if (expanded) {
+                    TransitionManager.beginDelayedTransition(more, AutoTransition())
+                    viewMore.visibility = VISIBLE
+                    more.visibility = GONE
+                    expanded = false
+                } else {
+                    val ingredients = listOf(
+                        cocktail.strIngredient1,
+                        cocktail.strIngredient2,
+                        cocktail.strIngredient3,
+                        cocktail.strIngredient4,
+                        cocktail.strIngredient5,
+                        cocktail.strIngredient6,
+                        cocktail.strMeasure1,
+                        cocktail.strMeasure2,
+                        cocktail.strMeasure3,
+                        cocktail.strMeasure4,
+                        cocktail.strMeasure5,
+                        cocktail.strMeasure6,
+                    )
+                    val adapterContent = getIngredientAndMeasure(ingredients)
+                    val ingredientsAdapter =
+                        IngredientsAdapter(adapterContent.first, adapterContent.second)
+                    ingredientRecycle.apply {
+                        adapter = ingredientsAdapter
+                        layoutManager = LinearLayoutManager(context)
+                    }
+                    TransitionManager.beginDelayedTransition(more, AutoTransition())
+                    viewMore.visibility = GONE
+                    more.visibility = VISIBLE
+                    expanded = true
+                }
             }
         }
     }

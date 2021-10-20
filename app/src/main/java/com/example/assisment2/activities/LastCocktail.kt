@@ -2,7 +2,6 @@ package com.example.assisment2.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -17,6 +16,7 @@ import com.example.assisment2.features.CocktailViewModel
 import com.example.assisment2.room.Drinks
 import com.example.assisment2.util.Resource
 import com.example.assisment2.util.drinkToFavourite
+import com.example.assisment2.util.getSearch
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -34,8 +34,8 @@ class LastCocktail : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        val lastCocktail = themeStatus
-        val cocktailAdapter = CocktailAdapter()
+        val lastCocktail = getSearch(this)
+        val cocktailAdapter = CocktailAdapter(this)
         binding.apply {
             recycle.apply {
                 adapter = cocktailAdapter
@@ -44,9 +44,7 @@ class LastCocktail : AppCompatActivity() {
             viewModel.findCocktails(lastCocktail!!).observe(this@LastCocktail) {
                 cocktailAdapter.setAdapter(it.data!!)
                 progress.isVisible = (it is Resource.Loading && it.data.isNullOrEmpty())
-                error.isVisible = it is Resource.Error
-                val error = it.error.toString()
-                this.error.text = error
+                it.error?.printStackTrace()
             }
             setSupportActionBar(toolbar)
         }
@@ -82,26 +80,5 @@ class LastCocktail : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    var themeStatus: String?
-        get() {
-            val sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(applicationContext)
-            return sharedPreferences.getString(LAST_SEARCHED_KEY, DEFAULT_LAST_SEARCHED)
-        }
-        set(mode) {
-            val sharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(applicationContext)
-            val editor = sharedPreferences.edit()
-            editor.putString(DEFAULT_LAST_SEARCHED, mode)
-            editor.apply()
-            finish()
-            startActivity(intent)
-        }
-
-    companion object {
-        const val LAST_SEARCHED_KEY = "ites is"
-        const val DEFAULT_LAST_SEARCHED = "cocktail"
     }
 }
